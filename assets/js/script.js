@@ -13,8 +13,22 @@ async function getStatus(e) {
     const data = await response.json();
     // if the response is correct ie status 200
     if (response.ok) {
-        console.log(data.expiry);
+        displayStatus(data);
     } else {
         throw new Error(data.error);
     }
+}
+
+
+// THis function will change the modal and display the status aswell as the time valid for the API
+function displayStatus(data) {
+    
+    let heading = "API Key Status";
+    let results = `<div>Your key is valid until</div>`
+    results += `<div> class="key-status">${data.expiry}</div>`
+
+    document.getElementById("resultsModalTitle").innerText = heading;
+    document.getElementById("results-content").innerHTML = results;
+
+    resultsModal.show();
 }
